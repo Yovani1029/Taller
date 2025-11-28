@@ -1,0 +1,85 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container" [ngClass]="mode">
+
+  <ng-container *ngIf="mode !== 'login'">
+
+    <ion-item lines="none" class="input-item">
+      <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+      El nombre es obligatorio
+    </p>
+
+    <ion-item lines="none" class="input-item">
+      <ion-icon name="people-outline" slot="start" class="input-icon"></ion-icon>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input formControlName="lastname"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="form.get('lastname')?.invalid && form.get('lastname')?.touched">
+      El apellido es obligatorio
+    </p>
+
+    <ion-item lines="none" class="input-item">
+      <ion-icon name="call-outline" slot="start" class="input-icon"></ion-icon>
+      <ion-label position="floating">Teléfono</ion-label>
+      <ion-input type="tel" formControlName="phone" maxlength="10" (ionInput)="validatePhone($event)">
+      </ion-input>
+    </ion-item>
+
+    <p class="error" *ngIf="phoneError">Solo se permiten números.</p>
+    <p class="error" *ngIf="form.get('phone')?.errors?.['minlength'] && form.get('phone')?.touched">
+      El teléfono debe tener 10 dígitos.
+    </p>
+
+  </ng-container>
+
+  <ion-item lines="none" class="input-item">
+    <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+  </ion-item>
+  <p class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+    Ingresa un correo válido.
+  </p>
+
+  <ion-item lines="none" class="input-item">
+    <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+    <ion-label position="floating">Contraseña</ion-label>
+
+    <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password">
+    </ion-input>
+
+    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" slot="end" class="toggle-pass"
+      (click)="togglePassword()">
+    </ion-icon>
+
+  </ion-item>
+
+  <p class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+    Mínimo 6 caracteres.
+  </p>
+
+  <ion-button expand="block" type="submit" class="submit-btn" [disabled]="form.invalid">
+    {{ mode === 'register' ? 'Registrarse' :
+    mode === 'login' ? 'Iniciar Sesión' :
+    'Actualizar' }}
+  </ion-button>
+
+  <div class="switch-auth">
+
+    <ng-container *ngIf="mode === 'login'">
+      <p>¿No tienes cuenta?
+        <a [routerLink]="['/register']" class="auth-link">Registrate</a>
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="mode === 'register'">
+      <p>¿Ya tienes cuenta?
+        <a [routerLink]="['/login']" class="auth-link">Inicia Sesión</a>
+      </p>
+    </ng-container>
+
+  </div>
+
+</form>

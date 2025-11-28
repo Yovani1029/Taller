@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Iniciar Sesion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inciar Sesion</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card-content>
+    <app-form mode="login" (formSubmit)="onLogin($event)">
+    </app-form>
+  </ion-card-content>
+
+</ion-content>

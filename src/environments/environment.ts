@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
+  supabaseUrl:'https://jejddrhjgxyhumlmwlfp.supabase.co',
+  supabaseKey: 'sb_publishable_JVYDkRIaRkAIWl7VdiS7DQ_hpzMMvbR',
    firebaseConfig: {
     apiKey: "AIzaSyANmUhG00qCnmkIRe2Rn56xPujwJyOkGfU",
     authDomain: "taller-28e5b.firebaseapp.com",

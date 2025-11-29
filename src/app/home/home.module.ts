@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { SharedModule } from '../shared/shared-module';
     HomePageRoutingModule,
     SharedModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ Permite a-scene, a-marker...
+
 })
-export class HomePageModule {}
+export class HomePageModule { }

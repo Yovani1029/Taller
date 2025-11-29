@@ -1,11 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Hola, {{ Name }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="confirmLogout()">
+        Salir
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button expand="block" color="danger" (click)="logout()">
-    Cerrar sesión
+
+
+  <ion-button  color="primary" [routerLink]="['/ar']">
+    Entrar a AR
   </ion-button>
+
 </ion-content>

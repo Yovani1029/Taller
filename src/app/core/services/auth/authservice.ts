@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { 
-  Auth, 
-  createUserWithEmailAndPassword, 
+import {
+  Auth,
+  createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
@@ -9,14 +9,14 @@ import {
   User
 } from '@angular/fire/auth';
 
-import { 
-  Firestore, 
-  doc, 
-  setDoc, 
-  collection, 
-  query, 
-  where, 
-  getDocs 
+import {
+  Firestore,
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs
 } from '@angular/fire/firestore';
 
 import { LoadingController, ToastController } from '@ionic/angular';
@@ -107,7 +107,6 @@ export class AuthService {
       message: 'Ingresando...',
       spinner: 'crescent'
     });
-
     await loading.present();
 
     try {
@@ -118,24 +117,34 @@ export class AuthService {
       return true;
 
     } catch (error: any) {
-      console.log(error);
-
       await loading.dismiss();
 
-      if (error.code === 'auth/invalid-credential') {
-        this.showToast('Correo o contraseña incorrectos', 'danger');
-        return false;
+      try {
+        const q = query(
+          collection(this.firestore, 'users'),
+          where('email', '==', email)
+        );
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          this.showToast('No existe usuario con este correo', 'danger');
+        } else {
+          this.showToast('Contraseña incorrecta para este correo', 'danger');
+        }
+      } catch (firestoreError) {
+        console.error('Error verificando correo en Firestore', firestoreError);
+        this.showToast('Error al iniciar sesión', 'danger');
       }
 
-      this.showToast('Error al iniciar sesión', 'danger');
       return false;
     }
   }
 
 
-  async logout() {
+
+  async logout(): Promise<void> {
     await signOut(this.auth);
-    this.showToast('Sesión cerrada', 'success');
+    await this.showToast('Sesión cerrada', 'success');
   }
 
 

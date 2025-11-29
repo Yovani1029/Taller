@@ -27,6 +27,10 @@ const routes: Routes = [
     canActivate: [NoAuthGuard]  // 🚫 Bloqueado si ya está logueado
 
   },
+  {
+    path: 'ar',
+    loadChildren: () => import('./pages/ar/ar.module').then( m => m.ArPageModule)
+  },
 ];
 
 @NgModule({

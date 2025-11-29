@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +17,9 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   exports: [
-    FormComponent
-  ]
+    FormComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class SharedModule { }
